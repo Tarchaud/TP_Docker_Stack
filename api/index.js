@@ -3,7 +3,8 @@ const bodyParser = require('body-parser');
 const moongoose = require('mongoose');
 const createHttpError = require('http-errors');
 
-
+//Middleware
+const errorMiddleware = require('./middleware/error/error');
 
 const app = express();
 const port = 3000;
@@ -21,6 +22,13 @@ app.use((req, res, next) => {
     console.log('Requête reçue !');
     next();
 });
+
+app.use((req, res, next) => {
+    next(createHttpError(404, 'Endpoint not found'));
+});
+
+app.use(errorMiddleware.HandlerError);
+
 
 // Démarrer le serveur
 app.listen(port, () => {
