@@ -1,13 +1,25 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const moongoose = require('mongoose');
+const mongoose = require('mongoose');
 const createHttpError = require('http-errors');
+const config = require('config');
+
 
 //Middleware
 const errorMiddleware = require('./middleware/error/error');
 
 const app = express();
-const port = 3000;
+const port = config.get('app.port') || 3000;
+
+
+mongoose.connect(config.get("db.url"), {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log('Connected to MongoDB');
+}).catch((err) => {
+    console.error('MongoDB connection error', err); 
+});
 
 app.use(bodyParser.json());
 
