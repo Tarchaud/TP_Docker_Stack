@@ -1,9 +1,8 @@
 {
     "app" : {
-        "port" : 3000,
-        "des" : "DockerTP mettre ajour pour docker coposer"
+        "port" : 3000
     },
     "db" : {
-        "url" : "mongodb://localhost:27017/DockerTP"
+        "url" : "mongodb://database:27017/DockerTP"
     }
 }
