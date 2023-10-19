@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const createHttpError = require('http-errors');
 const config = require('config');
 
+//Routes
+const userRoutes = require('./users/routes/users');
 
 //Middleware
 const errorMiddleware = require('./middleware/error/error');
@@ -21,7 +23,6 @@ mongoose.connect(config.get("db.url"), {
     console.error('MongoDB connection error', err); 
 });
 
-app.use(bodyParser.json());
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -30,10 +31,15 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(bodyParser.json());
+
 app.use((req, res, next) => {
     console.log('Requête reçue !');
     next();
 });
+
+
+app.use('/api/users', userRoutes);
 
 app.use((req, res, next) => {
     next(createHttpError(404, 'Endpoint not found'));
