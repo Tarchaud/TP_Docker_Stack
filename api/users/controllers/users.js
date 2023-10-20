@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const createHttpError = require('http-errors');
 
 exports.signup = (req, res, next) => {
-    console.log("teste incripstion de " , req.body); //TODO :clear
     bcrypt.hash(req.body.password,10).then(hash => {
         const user = new User({
             last_name : req.body.last_name,
@@ -12,7 +11,7 @@ exports.signup = (req, res, next) => {
             email: req.body.email,
             password: hash,
         });
-        console.log(user); //TODO :clear
+
         user.save()
             .then(() => res.status(201).json(user))
             .catch(error => {req.body.error_m = "email already used"; next(createHttpError(400, error),req)});

@@ -3,7 +3,7 @@ const TasksStatus = require('../models/tasksStatus');
 exports.createTasksStatus = (req, res, next) => {
     const tasksStatus = new TasksStatus({
         name: req.body.name,
-        color: req.body.color,
+        //color: req.body.color,
     });
     tasksStatus.save()
         .then(() => res.status(201).json(tasksStatus))

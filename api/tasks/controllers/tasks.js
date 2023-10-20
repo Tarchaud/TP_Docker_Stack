@@ -8,7 +8,7 @@ exports.createTask = async (req, res, next) => {
         let defaultStatus = await taskStatus.findOne({name: "À faire"});
         req.body.status = defaultStatus._id;
     }
-    console.log(req.body);
+
     const task = new Task({
         title: req.body.title,
         description: req.body.description,
