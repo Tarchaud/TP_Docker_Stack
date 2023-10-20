@@ -15,7 +15,7 @@ exports.signup = (req, res, next) => {
         console.log(user); //TODO :clear
         user.save()
             .then(() => res.status(201).json(user))
-            .catch(error => next(createHttpError(400, error)));
+            .catch(error => {req.body.error_m = "email already used"; next(createHttpError(400, error),req)});
     }).catch(error => next(createHttpError(400, error)));
 };
 
