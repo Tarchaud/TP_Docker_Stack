@@ -24,6 +24,8 @@ mongoose.connect(config.get("db.url"), {
     console.error('MongoDB connection error', err); 
 });
 
+// Appel du script d'initialisation
+require('./script/initDatabase.js');
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
