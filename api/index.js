@@ -6,6 +6,7 @@ const config = require('config');
 
 //Routes
 const userRoutes = require('./users/routes/users');
+const tasksStatusRoutes = require('./tasksStatus/routes/tasksStatus');
 
 //Middleware
 const errorMiddleware = require('./middleware/error/error');
@@ -41,6 +42,7 @@ app.use((req, res, next) => {
 
 
 app.use('/api/users', userRoutes);
+app.use('/api/tasksStatus', tasksStatusRoutes);
 
 app.use((req, res, next) => {
     next(createHttpError(404, 'Endpoint not found'));
