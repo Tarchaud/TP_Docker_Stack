@@ -6,7 +6,6 @@ const tasksStatus = require('../tasksStatus/models/tasksStatus');
 const User = require('../users/models/users');
 
 async function initializeStatuses() {
-    await mongoose.connect(config.get("db.url"));
 
     // Statuts que vous souhaitez ajouter
     const statusesToAdd = [
@@ -49,7 +48,6 @@ async function initializeStatuses() {
         await newUser.save();
     }
 
-    mongoose.disconnect();
 }
 
 initializeStatuses();
