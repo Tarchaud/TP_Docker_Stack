@@ -5,7 +5,7 @@ const createHttpError = require('http-errors');
 const config = require('config');
 
 //Routes
-const userRoutes = require('./users/routes/users');
+const projectsRoutes = require('./projects/routes/projects');
 const tasksStatusRoutes = require('./tasksStatus/routes/tasksStatus');
 const tasksRoutes = require('./tasks/routes/tasks');
 
@@ -44,7 +44,7 @@ app.use((req, res, next) => {
 });
 
 
-app.use('/api/users', userRoutes);
+app.use('/api/projects', projectsRoutes);
 app.use('/api/tasksStatus', tasksStatusRoutes);
 app.use('/api/tasks', tasksRoutes);
 

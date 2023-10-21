@@ -13,7 +13,7 @@ exports.createTask = async (req, res, next) => {
         title: req.body.title,
         description: req.body.description,
         status: req.body.status,
-        created_by: req.body.created_by,
+        project: req.body.project,
     });
 
     task.save()

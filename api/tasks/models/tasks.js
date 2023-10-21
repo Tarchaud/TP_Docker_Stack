@@ -10,9 +10,10 @@ const TaskSchema = mongoose.Schema({
         ref: 'TasksStatus', 
         required: true 
     },
-    created_by: { 
+    project : { 
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Users', required: true 
+        ref: 'Projects', 
+        required: true 
     },
 });
 
