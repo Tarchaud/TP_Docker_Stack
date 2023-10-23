@@ -2,12 +2,13 @@ const mongoose = require('mongoose');
 const config = require('config');
 const bcrypt = require('bcryptjs');
 
-const tasksStatus = require('../tasksStatus/models/tasksStatus');
-const User = require('../users/models/users');
+const TasksStatus = require('../tasksStatus/models/tasksStatus');
+const Project = require('../projects/models/projects');
+const Task = require('../tasks/models/tasks');
 
-async function initializeStatuses() {
+async function initializeDataBase() {
 
-    // Statuts que vous souhaitez ajouter
+    // Tasks status dans la database
     const statusesToAdd = [
         { name: 'À faire' },
         { name: 'En attente'},
@@ -15,39 +16,49 @@ async function initializeStatuses() {
         { name: 'Terminé' },
     ];
 
-    // Recherchez si les statuts existent déjà
-    const existingStatuses = await tasksStatus.find({ name: { 
+    const existingStatuses = await TasksStatus.find({ name: { 
         $in: statusesToAdd.map(status => status.name) 
     }});
 
-    // Filtrez les statuts déjà existants
     const newStatuses = statusesToAdd.filter(statusToAdd => !existingStatuses.some(existingStatus => existingStatus.name === statusToAdd.name));
 
-    // Insérez les nouveaux statuts
     if (newStatuses.length > 0) {
-        await tasksStatus.insertMany(newStatuses);
+        await TasksStatus.insertMany(newStatuses);
     }
 
-    // Vérifiez si l'utilisateur de test existe déjà
-    const testUser = await User.findOne({ email: 'test@test.com' });
-
-    // Si l'utilisateur de test n'existe pas, ajoutez-le avec un mot de passe haché
-    if (!testUser) {
-        const password = 'test'; 
-
-        // Hachez le mot de passe
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        const newUser = new User({
-            last_name: 'UserTest',
-            first_name: 'Tester',
-            email: 'test@test.com',
-            password: hashedPassword,
+    // Project test dans la database
+    const testProject =  await Project.findOne({ title: 'Projet de test' });
+    
+    if (!testProject) {
+        const ProjectToAdd = new Project({
+            title: 'Projet de test',
         });
-
-        await newUser.save();
+        await ProjectToAdd.save();
+        testProject = ProjectToAdd;
     }
+
+    // Tasks dans la database
+    //recupe le status "À faire"
+    const todo = existingStatuses.filter(status => status.name == "À faire")[0];
+
+    const tasksToAdd = [
+        { title: 'Tâche 1', description: 'Description de la tâche 1', status: todo._id, project: testProject._id },
+        { title: 'Tâche 2', description: 'Description de la tâche 2', status: todo._id, project: testProject._id },
+        { title: 'Tâche 3', description: 'Description de la tâche 3', status: todo._id, project: testProject._id },
+        { title: 'Tâche 4', description: 'Description de la tâche 4', status: todo._id, project: testProject._id }
+    ];
+
+    const existingTasks = await Task.find({ title: { 
+        $in: tasksToAdd.map(task => task.title) 
+    }});
+
+    const newTasks = tasksToAdd.filter(taskToAdd => !existingTasks.some(existingTask => existingTask.title === taskToAdd.title));
+
+    if (newTasks.length > 0) {
+        await Task.insertMany(newTasks);
+    }
+
 
 }
 
-initializeStatuses();
+initializeDataBase();
