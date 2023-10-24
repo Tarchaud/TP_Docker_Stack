@@ -1,18 +1,19 @@
+//module
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ProjectListComponent } from './project-list/project-list.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 //service
 import { ProjectService } from './project-list/project.service';
 
-//model
-import { Project } from './project-list/project.model';
+//components
+import { AppComponent } from './app.component';
+import { ProjectListComponent } from './project-list/project-list.component';
 import { KanbanTaskComponent } from './kanban-task/kanban-task.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -23,9 +24,11 @@ import { KanbanTaskComponent } from './kanban-task/kanban-task.component';
   imports: [
     BrowserModule,
     FormsModule,
+    DragDropModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [
     ProjectService
