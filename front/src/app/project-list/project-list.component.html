@@ -1,6 +1,37 @@
-<p>project-list works!</p>
-<p *ngFor="let project of projects">
-  {{project.title}}
-  {{project._id}}
-</p>
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+  <div class="container">
+    <h1 class="navbar-brand mx-auto">Projects List</h1>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row">
+    <div class="card col-sm-12 text-center">
+      <form class="form-inline" [formGroup]="newProjectForm" (ngSubmit)="createProject()" >
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="title" class="sr-only">Create Project</label>
+          <input type="text" class="form-control" formControlName="title" placeholder="Title">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Create Project</button>
+      </form>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-sm-3 p-1" *ngFor="let project of projects">
+      <div class="card" >
+        <div class="card-body">
+          <h5 class="card-title">{{project.title}}</h5>
+          <h6 class="card-subtitle mb-2 text-body-secondary">id : {{project._id}}</h6>
+        </div>
+        <div class="text-center mb-3">
+          <div class="btn-group col" role="group" aria-label="Basic outlined example">
+            <div type="button" class="btn btn-primary">see project</div>
+            <div type="button" class="btn btn-danger" (click)="deleteProject(project._id)">delete project</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 

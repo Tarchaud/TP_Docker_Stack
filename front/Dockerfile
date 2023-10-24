@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install Angular CLI
-RUN npm install -g @angular/cli
+RUN npm install -g @angular/cli@15.0.5
 
 # Installation des dépendances de l'application
 RUN npm install
