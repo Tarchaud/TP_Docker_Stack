@@ -1,5 +1,9 @@
-<p>kanban-task works!</p>
-<div cdkDropListGroup>
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+  <div class="container">
+    <h1 class="navbar-brand mx-auto">Kanban</h1>
+  </div>
+</nav>
+<!-- <div cdkDropListGroup>
   <div class="example-container">
     <h2>To do</h2>
 
@@ -7,6 +11,7 @@
       cdkDropList
       id="list-one"
       [cdkDropListData]="todo"
+      cdkDropListSortingDisabled
       class="example-list"
       (cdkDropListDropped)="drop($event)">
       <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
@@ -20,9 +25,30 @@
       cdkDropList
       id="list-two"
       [cdkDropListData]="done"
+      cdkDropListSortingDisabled
       class="example-list"
       (cdkDropListDropped)="drop($event)">
       <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+    </div>
+  </div>
+</div> -->
+
+<div class="container">
+  <div class="row">
+    <div cdkDropListGroup class="row">
+      <div class="col-sm-3 col-md-4 p-1" *ngFor="let status of TaskStatuses">
+        <h2>{{status.name}}</h2>
+
+        <div
+          cdkDropList
+          id="{{status._id}}"
+          [cdkDropListData]="Tasks[status._id]"
+          cdkDropListSortingDisabled
+          class="task-list"
+          (cdkDropListDropped)="changeStatus($event)">
+          <div class="taskBox" *ngFor="let task of Tasks[status._id]"  cdkDrag>{{task.title}}</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -1,8 +1,14 @@
 import { Component } from '@angular/core';
-import { ProjectService } from './project.service';
-import { Project } from './project.model';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { Router } from '@angular/router';
+
+
+//Models
+import { Project } from './project.model';
+
+//Services
+import { ProjectService } from './project.service';
 
 
 @Component({
@@ -17,14 +23,12 @@ export class ProjectListComponent {
     title :new FormControl('', [Validators.required]),
   });
 
-  constructor(private projectService: ProjectService) { }
+  constructor(private projectService: ProjectService, private router : Router) { }
 
   ngOnInit(): void {
     this.projectService.getAllProjects().subscribe({
       next: (data: any) => {
-        console.log(data); //TODO : remove
         this.projects = data;
-        console.log(this.projects); //TODO : remove
       },
       error: (err: any) => {
         Notify.failure(err.error.error);
@@ -55,6 +59,10 @@ export class ProjectListComponent {
         Notify.failure(err.error.error);
       }
     });
+  }
+
+  goToKanban(id : string){
+    this.router.navigate(['/project/', id]);
   }
 
 

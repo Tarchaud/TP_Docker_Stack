@@ -1,4 +1,16 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { ActivatedRoute } from '@angular/router';
+
+
+//Models
+import { Task } from './task.model';
+import { TaskStatus } from './taskStatus.model';
+
+//Services
+import { TaskService } from './task.service';
+import { TaskStatusService } from './task-status.service';
 
 import {
   CdkDragDrop,
@@ -8,34 +20,73 @@ import {
   CdkDropList,
 } from '@angular/cdk/drag-drop';
 
+interface TaskMap {
+  [key: string]: Task[]; // Clé (ID de la tâche) : Valeur (État de la tâche)
+}
+
 @Component({
   selector: 'app-kanban-task',
   templateUrl: './kanban-task.component.html',
   styleUrls: ['./kanban-task.component.css']
 })
 export class KanbanTaskComponent {
-  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
+  Tasks: TaskMap = {};
+  TaskStatuses: TaskStatus[] = [];
+  projectId : string = "";
 
-  done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
+  constructor(private taskService: TaskService, private taskStatusService: TaskStatusService, private activeRoute : ActivatedRoute) { }
 
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      console.log(event.previousContainer);
-      console.log(event.container.data);
-      console.log(event.previousIndex);
-      console.log(event.currentIndex);
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      console.log(event.previousContainer);
-      console.log(event.container);
-      console.log(event.previousIndex);
-      console.log(event.currentIndex);
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
+  ngOnInit(): void {
+    this.activeRoute.paramMap.subscribe(params => {
+      this.projectId = params.get('id') || "";
+      console.log(this.projectId);
+    });
+
+    this.taskStatusService.getAllTaskStatuses().subscribe({
+      next: (data: any) => {
+        this.TaskStatuses = data;
+      },
+      error: (err: any)  => {
+        Notify.failure(err.error.error);
+      }
+    });
+
+    this.taskService.getAllTasks(this.projectId).subscribe({
+      next: (data: any) => {
+        this.Tasks = {};
+        data.forEach((task : Task) => {
+          if (!this.Tasks[task.status]) {
+            this.Tasks[task.status] = [];
+          }
+          this.Tasks[task.status].push(task);
+        });
+      },
+      error: (err: any)  => {
+        Notify.failure(err.error.error);
+      }
+    });
+  }
+
+
+  changeStatus(event: CdkDragDrop<Task[]>) {
+    // console.log("data previous",event.previousContainer.data[event.previousIndex])
+    // console.log("data next",event.container.data)
+    // console.log("data previous inder",event.previousIndex)
+    // console.log("data current index",event.previousIndex)
+    // console.log("data current index",event.item)
+    if (event.previousContainer != event.container) {
+      let id = event.previousContainer.data[event.previousIndex]._id;
+      let updateTask = event.previousContainer.data[event.previousIndex];
+      updateTask.status = event.container.id;
+      this.taskService.updateTask(id, updateTask).subscribe({
+        next: (data: any) => {
+          Notify.success(data.message);
+          this.ngOnInit();
+        },
+        error: (err: any)  => {
+          Notify.failure(err.error.error);
+        }
+      });
     }
   }
 }
