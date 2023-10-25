@@ -27,8 +27,8 @@ exports.getAllTasks = (req, res, next) => {
         .catch(error => next(createHttpError(400, error)));
 }
 
-exports.getAllTasksByUser = (req, res, next) => {
-    Task.find({created_by: req.params.id})
+exports.getAllTasksByProject = (req, res, next) => {
+    Task.find({project: req.params.id})
         .then(tasks => res.status(200).json(tasks))
         .catch(error => next(createHttpError(400, error)));
 }
