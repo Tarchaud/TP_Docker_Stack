@@ -39,7 +39,7 @@ export class ProjectListComponent {
   createProject() {
     this.projectService.createProject(this.newProjectForm.value).subscribe({
       next: (data: any) => {
-        Notify.success(data.message);
+        Notify.success("Projet créé avec succès");
         this.newProjectForm.reset();
         this.ngOnInit();
       },

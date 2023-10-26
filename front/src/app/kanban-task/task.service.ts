@@ -23,4 +23,9 @@ export class TaskService {
     return this.httpClient.delete('http://localhost:3000/api/tasks/delete/' + id);
   }
 
+
+  createTask(task: any): any {
+    return this.httpClient.post('http://localhost:3000/api/tasks/add', task);
+  }
+
 }
