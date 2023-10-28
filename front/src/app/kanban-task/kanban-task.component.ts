@@ -100,7 +100,7 @@ export class KanbanTaskComponent {
     if (this.newTaskForm.valid) {
       this.taskService.createTask(this.newTaskForm.value).subscribe({
         next: (data: any) => {
-          Notify.success("Tâche créée avec succès");
+          Notify.success("Task created successfully");
           this.newTaskForm.reset();
           this.ngOnInit();
         },
