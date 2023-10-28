@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const createHttpError = require('http-errors');
 const config = require('config');
+const cors = require('cors');
 
 //Routes
 const projectsRoutes = require('./projects/routes/projects');
@@ -35,6 +36,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
