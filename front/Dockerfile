@@ -6,18 +6,16 @@ WORKDIR /app
 
 COPY package*.json ./
 
-# Install Angular CLI
 RUN npm install -g @angular/cli@15.0.5
 
 # Installation des dépendances de l'application
 RUN npm install
 
-
 # Exposer le port 4200 (port par défaut du serveur de développement d'Angular)
 EXPOSE 4200
 
-# Define the command to start your Angular app
-CMD [ "ng", "serve", "--host", "0.0.0.0" ]
+# Commande pour exécuter l'application
+CMD [ "npm", "start" ]
 
 ## Utilisez l'image officielle Angular CLI
 # FROM node:18.10.0 AS build
