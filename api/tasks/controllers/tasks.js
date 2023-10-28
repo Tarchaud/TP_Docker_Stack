@@ -28,7 +28,7 @@ exports.getAllTasks = (req, res, next) => {
 }
 
 exports.getAllTasksByProject = (req, res, next) => {
-    Task.find({project: req.params.id})
+    Task.find({project: req.params.idProject})
         .then(tasks => res.status(200).json(tasks))
         .catch(error => next(createHttpError(400, error)));
 }
