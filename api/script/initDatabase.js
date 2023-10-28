@@ -27,11 +27,11 @@ async function initializeDataBase() {
     }
 
     // Project test dans la database
-    const testProject =  await Project.findOne({ title: 'Projet de test' });
+    let testProject =  await Project.findOne({ title: 'TP_Docker_Stack' });
     
     if (!testProject) {
         const ProjectToAdd = new Project({
-            title: 'Projet de test',
+            title: 'TP_Docker_Stack',
         });
         await ProjectToAdd.save();
         testProject = ProjectToAdd;
@@ -40,12 +40,17 @@ async function initializeDataBase() {
     // Tasks dans la database
     //recupe le status "À faire"
     const todo = existingStatuses.filter(status => status.name == "À faire")[0];
+    const pending = existingStatuses.filter(status => status.name == "En attente")[0];
+    const inProgress = existingStatuses.filter(status => status.name == "En cours")[0];
+    const done = existingStatuses.filter(status => status.name == "Terminé")[0];
 
     const tasksToAdd = [
-        { title: 'Tâche 1', description: 'Description de la tâche 1', status: todo._id, project: testProject._id },
-        { title: 'Tâche 2', description: 'Description de la tâche 2', status: todo._id, project: testProject._id },
-        { title: 'Tâche 3', description: 'Description de la tâche 3', status: todo._id, project: testProject._id },
-        { title: 'Tâche 4', description: 'Description de la tâche 4', status: todo._id, project: testProject._id }
+        { title: 'Front - update Task', description: 'Create part to update Task', status: todo._id, project: testProject._id },
+        { title: 'Front - UI', description: '', status: todo._id, project: testProject._id },
+        { title: 'Front (MVP)', description: 'Front minimum viable product', status: done._id, project: testProject._id },
+        { title: 'API (MVP)', description: 'API minimum viable product', status: done._id, project: testProject._id },
+        { title: 'Init DB', description: 'Script to init DB', status: done._id, project: testProject._id },
+        
     ];
 
     const existingTasks = await Task.find({ title: { 
