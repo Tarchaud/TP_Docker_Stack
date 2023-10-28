@@ -4,7 +4,7 @@ const mongooseTimestamps = require('mongoose-timestamp');
 
 const TaskSchema = mongoose.Schema({
     title: { type: String, required: true },
-    description: { type: String, required: true },
+    description: { type: String, required: false },
     status: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'TasksStatus', 

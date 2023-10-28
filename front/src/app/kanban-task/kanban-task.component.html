@@ -1,0 +1,74 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+  <div class="container">
+    <h1 class="navbar-brand mx-auto">Kanban</h1>
+  </div>
+  <!-- add butotn to go back -->
+  <div class="btn-group" role="group" aria-label="Basic outlined example">
+    <div type="button" class="btn btn-primary" (click)="goToProjects()">Back to projects</div>
+  </div>
+</nav>
+
+
+<div class="container">
+
+  <!-- Part to create a new task -->
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Create a new task</h5>
+          <form (ngSubmit)="createTask()" [formGroup]="newTaskForm">
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" class="form-control" formControlName="title" name="title" id="title" placeholder="Enter title" required>
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea class="form-control" formControlName="description" name="description" id="description" rows="3" placeholder="Enter description" ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="status">Status</label>
+              <select class="form-control" formControlName="status" name="status" id="status" required>
+                <option *ngFor="let status of TaskStatuses" [value]="status._id">{{status.name}}</option>
+              </select>
+            </div>
+            <div class="text-center p-2">
+              <button type="submit" class="btn btn-primary mb-2">Create Task</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div cdkDropListGroup class="row">
+      <div class="col-sm-3 col-md-3 p-1" *ngFor="let status of TaskStatuses">
+        <h2>{{status.name}}</h2>
+
+        <div
+          cdkDropList
+          id="{{status._id}}"
+          [cdkDropListData]="Tasks[status._id]"
+          cdkDropListSortingDisabled
+          class="task-list"
+          (cdkDropListDropped)="changeStatus($event)">
+          <div class="taskBox" *ngFor="let task of Tasks[status._id]"  cdkDrag>
+            <div class="col">
+              <h6>{{task.title}}</h6>
+              <article *ngIf="task.description">
+                Description :
+                <p>{{task.description}}</p>
+              </article>
+              <div class="btn-group" role="group" aria-label="Basic outlined example">
+                <div type="button" class="btn btn-danger" (click)="deleteTask(task._id)">delete task</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
