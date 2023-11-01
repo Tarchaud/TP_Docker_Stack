@@ -1,5 +1,5 @@
 # Utilisation de l'image Node.js 14 comme base
-FROM node:18.10.0
+FROM node:18.10.0-alpine
 
 # Répertoire de travail dans le conteneur
 WORKDIR /app
@@ -18,7 +18,7 @@ EXPOSE 4200
 CMD [ "npm", "start" ]
 
 ## Utilisez l'image officielle Angular CLI
-# FROM node:18.10.0 AS build
+# FROM node:18.10.0-alpine AS build
 # # Définissez le répertoire de travail dans le conteneur
 # WORKDIR /app
 # # Copiez le fichier package.json et le fichier package-lock.json dans le conteneur
