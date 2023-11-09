@@ -5,8 +5,6 @@ services:
     build: front/
     ports:
       - "4200:4200"
-    volumes:
-      - ./front:/app
     depends_on:
       - backend
     networks:
@@ -19,8 +17,6 @@ services:
       - "3000:3000"
     depends_on:
       - database
-    volumes:
-      - ./api:/usr/src/app
     networks:
       - tpNetwork
 
