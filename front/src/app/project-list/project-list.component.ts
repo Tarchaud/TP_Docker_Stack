@@ -31,9 +31,7 @@ export class ProjectListComponent {
         this.projects = data;
       },
       error: (err: any) => {
-        Notify.failure(err.error.error, {
-          closeButton : true,
-        });
+        Notify.failure(err.error.error);
       }
     });
   }
@@ -41,16 +39,12 @@ export class ProjectListComponent {
   createProject() {
     this.projectService.createProject(this.newProjectForm.value).subscribe({
       next: (data: any) => {
-        Notify.success("Project created successfully",{
-          closeButton : true,
-        });
+        Notify.success("Project created successfully");
         this.newProjectForm.reset();
         this.ngOnInit();
       },
       error: (err: any) => {
-        Notify.failure(err.error.error,{
-          closeButton : true,
-        });
+        Notify.failure(err.error.error);
       }
     });
   }
@@ -58,15 +52,11 @@ export class ProjectListComponent {
   deleteProject(id: string) {
     this.projectService.deleteProject(id).subscribe({
       next : (data: any) => {
-        Notify.success(data.message, {
-          closeButton : true,
-        });
+        Notify.success(data.message);
         this.ngOnInit();
       },
       error: (err: any) => {
-        Notify.failure(err.error.error,{
-          closeButton : true,
-        });
+        Notify.failure(err.error.error);
       }
     });
   }
