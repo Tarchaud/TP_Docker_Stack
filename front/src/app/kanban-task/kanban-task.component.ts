@@ -58,9 +58,7 @@ export class KanbanTaskComponent {
         this.newTaskForm.get('status')?.setValue(this.TaskStatuses[0]._id);
       },
       error: (err: any)  => {
-        Notify.failure(err.error.error,{
-          closeButton : true,
-        });
+        Notify.failure(err.error.error);
       }
     });
 
@@ -75,9 +73,7 @@ export class KanbanTaskComponent {
         });
       },
       error: (err: any)  => {
-        Notify.failure(err.error.error,{
-          closeButton : true,
-        });
+        Notify.failure(err.error.error);
       }
     });
   }
@@ -90,15 +86,11 @@ export class KanbanTaskComponent {
       updateTask.status = event.container.id;
       this.taskService.updateTask(id, updateTask).subscribe({
         next: (data: any) => {
-          Notify.success(data.message,{
-            closeButton : true,
-          });
+          Notify.success(data.message);
           this.ngOnInit();
         },
         error: (err: any)  => {
-          Notify.failure(err.error.error,{
-            closeButton : true,
-          });
+          Notify.failure(err.error.error);
         }
       });
     }
@@ -108,16 +100,12 @@ export class KanbanTaskComponent {
     if (this.newTaskForm.valid) {
       this.taskService.createTask(this.newTaskForm.value).subscribe({
         next: (data: any) => {
-          Notify.success("Task created successfully",{
-            closeButton : true,
-          });
+          Notify.success("Task created successfully");
           this.newTaskForm.reset();
           this.ngOnInit();
         },
         error: (err: any)  => {
-          Notify.failure(err.error.error,{
-            closeButton : true,
-          });
+          Notify.failure(err.error.error);
         }
       });
     }
@@ -126,15 +114,11 @@ export class KanbanTaskComponent {
   deleteTask(taskId : string){
     this.taskService.deleteTask(taskId).subscribe({
       next: (data: any) => {
-        Notify.success(data.message,{
-          closeButton : true,
-        });
+        Notify.success(data.message);
         this.ngOnInit();
       },
       error: (err: any)  => {
-        Notify.failure(err.error.error,{
-          closeButton : true,
-        });
+        Notify.failure(err.error.error);
       }
     });
   }

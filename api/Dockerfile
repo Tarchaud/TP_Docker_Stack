@@ -1,17 +1,14 @@
 # Utilisation de l'image Node.js
-FROM node:18.10.0-alpine
+FROM node:20.9.0-alpine
 
 # Répertoire de travail dans le conteneur
 WORKDIR /app
 
-# Copie des fichiers du projet
-COPY ./ ./
-
-# Installation des dépendances de l'application
-RUN npm install
+# Copiez les fichiers package.json et package-lock.json
+COPY package*.json ./
 
 # Exposer le port 3000
 EXPOSE 3000
 
-# Commande pour exécuter l'application
-CMD [ "npm", "run", "start" ]
+# Commande pour installer les node_modules puis exécuter l'application
+CMD npm install && npm start
