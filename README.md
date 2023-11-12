@@ -15,7 +15,7 @@ sudo ddocker-compose up -d
 sudo docker-compose up
 ```
 
-Une fois le projet lancée, direction http://localhost:4200/ pour accéder au projet
+Une fois le projet lancée, direction http://localhost:80/ pour accéder au projet
 
 ## Arreter le projet
 ```bash
