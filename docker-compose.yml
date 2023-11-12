@@ -3,6 +3,7 @@ version: '3.1'
 services:
   frontend:
     build: front/
+    restart: always
     ports:
       - "4200:4200"
     volumes:
@@ -16,6 +17,7 @@ services:
 
   backend:
     build: api/
+    restart: always
     ports:
       - "3000:3000"
     volumes:
@@ -37,6 +39,7 @@ services:
 
   nginx:
     build: ./nginx
+    restart: always
     ports:
       - "80:80"
     networks:

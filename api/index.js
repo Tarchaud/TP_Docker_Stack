@@ -42,6 +42,7 @@ app.use(bodyParser.json());
 
 app.use((req, res, next) => {
     console.log('Requête reçue !');
+    console.log('Requête à la route : ',req.url);
     next();
 });
 
