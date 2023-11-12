@@ -10,7 +10,6 @@ services:
       - ./front:/app
     depends_on:
       - backend
-      - database
     networks:
       - tpNetwork
 
@@ -47,7 +46,6 @@ services:
     depends_on:
       - frontend
       - backend
-      - database
 
 networks:
   tpNetwork:
