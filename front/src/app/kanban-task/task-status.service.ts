@@ -12,7 +12,7 @@ export class TaskStatusService {
   constructor(private httpClient: HttpClient) { }
 
   getAllTaskStatuses(): Observable<TaskStatus[]> {
-    return this.httpClient.get<TaskStatus[]>('http://localhost:3000/api/tasksStatus/getAll');
+    return this.httpClient.get<TaskStatus[]>('http://localhost:80/api/tasksStatus/getAll');
   }
 
 }
