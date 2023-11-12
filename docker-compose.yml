@@ -9,6 +9,7 @@ services:
       - ./front:/app
     depends_on:
       - backend
+      - database
     networks:
       - tpNetwork
 
