@@ -5,10 +5,13 @@ FROM node:20.9.0-alpine
 WORKDIR /app
 
 # Copiez les fichiers package.json et package-lock.json
-COPY package*.json ./
+COPY ./ ./
+
+# Installer les dépendances
+RUN npm install
 
 # Exposer le port 3000
 EXPOSE 3000
 
 # Commande pour installer les node_modules puis exécuter l'application
-CMD npm install && npm start
+CMD npm start
