@@ -54,13 +54,14 @@ La stack est composée de 4 services :
 ### database :
 
 - **Image:** Le service utilise l'image MongoDB disponible publiquement sur Docker Hub.
+- **Redémarrage:** Le service est configuré pour redémarrer toujours (`restart: always`).
 - **Ports:** Le service expose le port 27017 sur l'hôte, qui est mappé sur le port 27017 du conteneur.
 - **Volumes:** Un volume nommé `mongodb_data` est utilisé pour stocker les données persistantes de la base de données.
 - **Networks:** Le service est connecté au réseau `tpNetwork`.
 
 ### nginx :
 
-- **Image:** Le service utilise l'image Nginx disponible publiquement sur Docker Hub.
+- **Build:** Le service est construit à partir du répertoire `./nginx`.
 - **Ports:** Le service expose le port 80 sur l'hôte, qui est mappé sur le port 80 du conteneur.
 - **Volumes:** Le fichier de configuration `./nginx/nginx.conf` sur l'hôte est monté dans le répertoire `/etc/nginx/nginx.conf` du conteneur.
 - **Dépendances:** Ce service dépend du démarrage des services `frontend`, `backend`, et `database`.

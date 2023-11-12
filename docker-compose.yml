@@ -36,11 +36,9 @@ services:
       - tpNetwork
 
   nginx:
-    image: nginx
+    build: ./nginx
     ports:
       - "80:80"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     networks:
       - tpNetwork
     depends_on:
