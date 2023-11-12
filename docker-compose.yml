@@ -33,6 +33,19 @@ services:
     networks:
       - tpNetwork
 
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - tpNetwork
+    depends_on:
+      - frontend
+      - backend
+      - database
+
 networks:
   tpNetwork:
 

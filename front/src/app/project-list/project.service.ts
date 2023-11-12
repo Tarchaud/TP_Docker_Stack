@@ -14,15 +14,15 @@ export class ProjectService {
 
 
   getAllProjects(): Observable<Project[]> {
-    return this.httpClient.get<Project[]>('http://localhost:3000/api/projects/getAll');
+    return this.httpClient.get<Project[]>('http://localhost:80/api/projects/getAll');
   }
 
   createProject(project: any): any {
-    return this.httpClient.post('http://localhost:3000/api/projects/add', project);
+    return this.httpClient.post('http://localhost:80/api/projects/add', project);
   }
 
   deleteProject(id: string): any {
-    return this.httpClient.delete('http://localhost:3000/api/projects/delete/' + id);
+    return this.httpClient.delete('http://localhost:80/api/projects/delete/' + id);
   }
 
 
