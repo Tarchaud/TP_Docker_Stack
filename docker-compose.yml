@@ -2,8 +2,8 @@ version: '3.1'
 
 services:
   frontend:
-    build: front/
-    restart: always
+    image: tpchautard/frontend
+    # build: ./front/
     ports:
       - "4200:4200"
     volumes:
@@ -11,13 +11,18 @@ services:
     depends_on:
       - backend
       - database
+    deploy:
+      replicas: 2
+      placement:
+        constraints:
+          - node.role == manager
     networks:
       - tpNetwork
 
 
   backend:
-    build: api/
-    restart: always
+    image: tpchautard/api
+    # build: ./api/
     ports:
       - "3000:3000"
     volumes:
